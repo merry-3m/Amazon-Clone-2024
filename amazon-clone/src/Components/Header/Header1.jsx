@@ -7,6 +7,9 @@ import { BsCart } from "react-icons/bs";
 import classes from "./header.module.css"
 import LowerHeader from './LowerHeader';
 
+// ` a tag will make the browser to refresh when it get clicked. so use Link instead. Link is used to prevent full page reload
+import { Link } from 'react-router-dom';
+
 
 const Header1 = () => {
   return (
@@ -15,9 +18,9 @@ const Header1 = () => {
         <section className= {classes.header_container}>
            {/* Logo */}
           <div className={classes.logo_container}>
-            <a href="/">
+            <Link to="/">
               <img src={amazonLogo} alt="amazonLogo" />
-            </a>
+            </Link>
             {/* Delivery */}
            <div className={classes.delivery}>
            <span>
@@ -44,31 +47,31 @@ const Header1 = () => {
 
           <div className={classes.order_container}>
 
-             <a href="" className={classes.language}>
+             <Link to="" className={classes.language}>
              <img src={flag} alt="Flag" />
               <select name="" id="">
                 <option value="">EN</option>
               </select>
-             </a>
+             </Link>
           {/* three components */}
-          <a href="">
+          <Link to="/auth">
             <div>
               <p>Sign In</p>
               <span>Account & Lists</span>
             </div>
-          </a>
+          </Link>
 
           {/* Orders */}
-          <a href="">
+          <Link to="/orders">
             <p>returns</p>
             <span>&orders</span>
-          </a>
+          </Link>
 
           {/* Cart */}
-          <a href='' className={classes.cart}>
+          <Link to='/cart' className={classes.cart}>
           <BsCart size={35} />
             <span>0</span>
-          </a>
+          </Link>
           </div>
         </section>
 
