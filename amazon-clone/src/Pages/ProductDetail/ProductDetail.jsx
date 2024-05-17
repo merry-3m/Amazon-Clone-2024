@@ -46,6 +46,7 @@ const ProductDetail = () => {
       product = {products}
       key = {products.id}
       flex = {true}
+      renderDetail = {true}
       
       />
     )}

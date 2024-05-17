@@ -9,17 +9,26 @@ import { Link } from 'react-router-dom'
 
 
 // ` Destructure the fetched product from Product component
-const ProductCard = ({product}) => {
+const ProductCard = ({product,flex,renderDetail}) => {
 
     // ` Destructure the items in product
-    const { image,title, id, rating, price } = product
+    const { image,title, id, rating, price,description } = product
+    // console.log(product);
+
+    // ` To limit the css to the class it's called
+    const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ""} ${renderDetail ? classes.no_hover : ""}`
   return (
-    <div className={classes.card_container}>
+    <div className={cardClass}>
+
         <Link to={`/products/${id}`}>
             <img src={image} alt="" />
         </Link>
         <div>
-            <h4>{title}</h4>
+            <h3>{title}</h3>
+            {/* if renderDetail is true in ProductDetail component */}
+            {renderDetail && <div style={{maxWidth:"750px"}}>
+                {description}
+                </div>}
             <div className={classes.rating}>
                 {/* rating */}
                 
