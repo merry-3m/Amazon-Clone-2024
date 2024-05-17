@@ -4,7 +4,8 @@ import classes from "./product.module.css"
 import Rating from "@mui/material/Rating"
 // : numeral js for number counting in my CurrencyFormat Component
 import CurrencyFormat from '../CurrencyFormat/CurrencyFormat'
-
+// ` a tag to Link
+import { Link } from 'react-router-dom'
 
 
 // ` Destructure the fetched product from Product component
@@ -14,9 +15,9 @@ const ProductCard = ({product}) => {
     const { image,title, id, rating, price } = product
   return (
     <div className={classes.card_container}>
-        <a href="">
+        <Link to={`/products/${id}`}>
             <img src={image} alt="" />
-        </a>
+        </Link>
         <div>
             <h4>{title}</h4>
             <div className={classes.rating}>

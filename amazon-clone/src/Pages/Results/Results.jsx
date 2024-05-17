@@ -21,7 +21,7 @@ const Results = () => {
 
   axios.get(`${productUrl}/products/category/${categoryName}`)
   .then(res=>{ //* the response is named as data
-    console.log(res.data);
+    // console.log(res.data);
     setResults(res.data)
   }).catch(err=>console.log(err))
   },[])
