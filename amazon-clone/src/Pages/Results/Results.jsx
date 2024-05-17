@@ -5,8 +5,14 @@ import { useParams } from 'react-router-dom'
 import axios from "axios"
 import { productUrl } from '../../Api/endPoints'
 import ProductCard from '../../Components/Product/ProductCard'
+import Loader from '../../Components/Loader/Loader'
 
 const Results = () => {
+ // ` useState for the loading from react spinner
+
+ const [isLoading, setIsLoading] = useState(false)
+//  # the initial value of isLoading is false  indicates that the data has been successfully loaded from the API
+
   // ` Create useState to store the data
   const [results, setResults] = useState([])
 
@@ -17,13 +23,20 @@ const Results = () => {
 
   //` use useEffect so the data will be fetched when the component mounts
   useEffect(()=>{
-     // *Fetch the baseUrl then and all the path and to make it dynamic we use useParams
+    // ` before fetching the data
+    setIsLoading(true)
 
-  axios.get(`${productUrl}/products/category/${categoryName}`)
+     // *Fetch the baseUrl then and all the path and to make it dynamic we use useParams
+axios.get(`${productUrl}/products/category/${categoryName}`)
   .then(res=>{ //* the response is named as data
     // console.log(res.data);
     setResults(res.data)
-  }).catch(err=>console.log(err))
+    setIsLoading(false)
+
+  }).catch((err)=>{
+    console.log(err)
+    setIsLoading(false)
+  })
   },[])
 
 
@@ -31,7 +44,9 @@ const Results = () => {
 
   return (
     <LayOut>
-    <section>
+    <>
+    {isLoading?(<Loader/>):(
+      <section>
       <h1 style={{padding:"30px"}}>Results</h1>
       <p style={{padding:"30px"}}>Category/{categoryName}</p>
       <hr />
@@ -50,6 +65,8 @@ const Results = () => {
         }
       </div>
     </section>
+    )}
+    </>
 
       
     </LayOut>

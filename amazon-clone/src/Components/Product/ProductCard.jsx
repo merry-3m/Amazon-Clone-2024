@@ -22,9 +22,10 @@ const ProductCard = ({product}) => {
             <h4>{title}</h4>
             <div className={classes.rating}>
                 {/* rating */}
-                <Rating value={rating.rate} precision={0.1}/>
+                
+                <Rating value={rating?.rate} precision={0.1}/>
                 {/* rating count */}
-                <small>{rating.count}</small>
+                <small>{rating?.count}</small>
             </div>
             <div>
                 {/* price */}
