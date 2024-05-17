@@ -6,7 +6,7 @@ import classes from "./category.module.css"
 import { Link } from "react-router-dom"
 
 const CategoryCard = ({data}) => { //` We are destructuring the props data from category component
-  // console.log(data);
+  console.log(data);
   return (
     <div className={classes.category}>
 

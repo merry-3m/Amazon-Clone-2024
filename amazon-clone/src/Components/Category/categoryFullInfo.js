@@ -18,7 +18,7 @@ export const categoryInfo = [
     },
     {
         title: "Jewelry",
-        name:"Jewelry",
+        name:"jewelery",
         imgLink:"https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg",
     },
 

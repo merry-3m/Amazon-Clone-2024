@@ -21,7 +21,7 @@ const Results = () => {
 
   axios.get(`${productUrl}/products/category/${categoryName}`)
   .then(res=>{ //* the response is named as data
-    // console.log(res.data);
+    console.log(res.data);
     setResults(res.data)
   }).catch(err=>console.log(err))
   },[])
@@ -36,7 +36,7 @@ const Results = () => {
       <p style={{padding:"30px"}}>Category/{categoryName}</p>
       <hr />
 
-      <div className={classes.products_container}>
+      <div className={classes.product_container}>
         {
           results?.map((product)=>(
             <ProductCard
