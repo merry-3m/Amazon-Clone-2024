@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import amazonLogo from "../../assets/images/amazonLogo.png"
 import flag from "../../assets/images/flag.png"
 import { SlLocationPin } from "react-icons/sl";
@@ -7,11 +7,19 @@ import { BsCart } from "react-icons/bs";
 import classes from "./header.module.css"
 import LowerHeader from './LowerHeader';
 
-// ` a tag will make the browser to refresh when it get clicked. so use Link instead. Link is used to prevent full page reload
+// ` <a> tag will make the browser to refresh when it get clicked. so use Link instead. Link is used to prevent full page reload
 import { Link } from 'react-router-dom';
+import { DataContext } from '../DataProvider/DataProvider';
 
 
 const Header1 = () => {
+
+  // ` access the state but we want the basket so destructure it
+  const [{basket},dispatch] = useContext(DataContext)
+  // ` to access how many buttons are clicked we can use .length 
+  // console.log(basket.length);
+
+
   return (
     <>
       <section>
@@ -70,7 +78,7 @@ const Header1 = () => {
           {/* Cart */}
           <Link to='/cart' className={classes.cart}>
           <BsCart size={35} />
-            <span>0</span>
+            <span>{basket.length}</span>
           </Link>
           </div>
         </section>
