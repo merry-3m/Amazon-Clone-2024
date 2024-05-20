@@ -47,6 +47,8 @@ const ProductDetail = () => {
       key = {products.id}
       flex = {true}
       renderDetail = {true}
+      renderButton={true}
+
       
       />
     )}

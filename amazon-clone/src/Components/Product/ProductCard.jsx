@@ -11,7 +11,7 @@ import { Type } from '../../Utility/action.type'
 
 
 // ` Destructure the fetched product from Product component
-const ProductCard = ({product,flex,renderDetail}) => {
+const ProductCard = ({product,flex,renderDetail,renderButton}) => {
 
     // ` Destructure the items in product
     const { image,title, id, rating, price,description } = product
@@ -67,12 +67,12 @@ const ProductCard = ({product,flex,renderDetail}) => {
                 {/* price */}
                 <CurrencyFormat amount={price}/>
 </div>
-        <button 
+        {renderButton && <button 
         className={classes.button}
         onClick={addToCart}
         >
             add to cart
-        </button>
+        </button>}
         </div>
         
     </div>

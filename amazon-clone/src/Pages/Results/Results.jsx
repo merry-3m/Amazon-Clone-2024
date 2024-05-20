@@ -1,3 +1,5 @@
+// = when the categories  got clicked
+
 import React, { useEffect, useState } from 'react'
 import classes from "./results.module.css"
 import LayOut from '../../Components/LayOut/LayOut'
@@ -57,6 +59,7 @@ axios.get(`${productUrl}/products/category/${categoryName}`)
             <ProductCard
               product = {product}
               key={product.id}
+              renderButton={true}
             
             />
 
