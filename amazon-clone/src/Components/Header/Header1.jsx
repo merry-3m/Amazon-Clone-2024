@@ -17,7 +17,14 @@ const Header1 = () => {
   // ` access the state but we want the basket so destructure it
   const [{basket},dispatch] = useContext(DataContext)
   // ` to access how many buttons are clicked we can use .length 
-  // console.log(basket.length);
+  // console.log(basket.length)
+
+// ` 
+ const totalItem = basket.reduce((amount,item)=>
+  {
+    return amount + item.amount
+  },0)
+  // console.log(totalItem);
 
 
   return (
@@ -79,7 +86,7 @@ const Header1 = () => {
           {/* Cart */}
           <Link to='/cart' className={classes.cart}>
           <BsCart size={35} />
-            <span>{basket.length}</span>
+            <span>{totalItem}</span>
           </Link>
           </div>
         </section>
