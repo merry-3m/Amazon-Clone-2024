@@ -9,7 +9,9 @@ import { Type } from "./action.type"
 
 export const initialState = {
     // # Initially its empty. We use empty array so it'll be easy to count
-    basket:[]
+    basket:[],
+    // # for the user, Initially it's null
+    user:null
 }
 // ` reducer part of the useReducer
 
@@ -36,7 +38,7 @@ export const reducer = (state,action)=>{
                   basket: updateBasket
                 };
               }
-
+// : remover from basket case
               case Type.REMOVE_FROM_BASKET:
                 const index = state.basket.findIndex((item) => item.id === action.id);
                 let newBasket = [...state.basket];
@@ -52,7 +54,13 @@ export const reducer = (state,action)=>{
                   ...state,
                   basket: newBasket
                 };
-    
+//: action that add user
+
+      case Type.SET_USER:
+        return {
+           ...state,
+            user:action.user
+        }
         default:
             return state;
     }
