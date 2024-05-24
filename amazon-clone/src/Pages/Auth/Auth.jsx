@@ -1,12 +1,15 @@
 import React, { useState,useContext } from 'react'
 import classes from "./signUp.module.css"
 import amazonLogo from "../../assets/images/amazon-Logo.png"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import {auth} from "../../Utility/firebase"
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
 import {DataContext} from "../../Components/DataProvider/DataProvider"
 import { Type } from '../../Utility/action.type'
+import {ClipLoader} from "react-spinners"
+
+
 
 
 
@@ -20,11 +23,19 @@ const Auth = () => {
 
     //`  to hold the error
      const [error,setError] = useState("")
+
+    //  ` loading state and initially it is not spinning (false)
+     const [isLoading, setIsLoading] = useState({
+      signIn:false,
+      signUp:false
+     })
     
 // * we will provide the user to other component by context
     const [{user}, dispatch] = useContext(DataContext)
     console.log(user); //` it's initially null from reducer.js then after some action applied from dispatch it'll have some value
 
+    // ` to navigate
+    const navigate = useNavigate()
 // console.log(email,password);
 
 // ` function for sign in and sign up
@@ -34,6 +45,13 @@ const authHandler =  async(e)=>{
      e.preventDefault()
   // console.log(e.target.name); //* when signIn button clicked the name will be signIn
   if(e.target.name === "signIn"){
+    //= when sign in get clicked
+    setIsLoading({
+     ...isLoading,
+      signIn:true
+    })
+    // ` to sign in from firebase auth
+    signInWithEmailAndPassword(auth,email,password)
     // ` to sign in from firebase auth
     signInWithEmailAndPassword(auth,email,password)
     .then((userInfo)=>{
@@ -43,12 +61,24 @@ const authHandler =  async(e)=>{
         type:Type.SET_USER,
         user:userInfo.user  
       })
+      // = when sign in button clicking is successful
+      setIsLoading({
+        ...isLoading,
+        signIn:false
+      })
+    //  `  navigate to home page
+    navigate("/")
 
-    }).catch((err)=>{
-      console.log(err);
+    }).catch((error)=>{
+      console.log(error.message);
+      setError(error.message)
+      setIsLoading({...isLoading,signIn:false})
     })
 
   }else{
+      //= when sign up get clicked
+      setIsLoading({...isLoading, signUp:true})
+
     createUserWithEmailAndPassword(auth,email,password)
     .then((userInfo)=>{
       // console.log(userInfo);
@@ -57,10 +87,14 @@ const authHandler =  async(e)=>{
         type:Type.SET_USER,
         user:userInfo.user  
       })
-
+      // = when sign up button clicking is successful
+      setIsLoading({...isLoading,signUp:false})
+      navigate("/")
     }
-    ).catch((err)=>{
-      console.log(err);
+    ).catch((error)=>{
+      console.log(error.message);
+      setError(error.message)
+      setIsLoading({...isLoading,signUp:false})
     })
 
   }
@@ -71,7 +105,8 @@ const authHandler =  async(e)=>{
   return (
     <section className={classes.logIn}>
       {/* amazon Logo */}
-      <Link >
+     
+      <Link to="/">
           <img src={amazonLogo} alt="" />
       </Link>
 
@@ -98,7 +133,11 @@ const authHandler =  async(e)=>{
           <button 
           name='signIn'
           onClick={authHandler}
-          type="submit" className={classes.logIn_signInButton}>Sign In</button>
+          type="submit" className={classes.logIn_signInButton}> 
+          {
+            isLoading.signIn?(<ClipLoader size={20} color="#000" />):("Sign In")
+          }
+          </button>
         </form>
         {/* agreement */}
         <p>
@@ -110,7 +149,16 @@ const authHandler =  async(e)=>{
            name='signUp'
           onClick={authHandler}
           className=
-          {classes.logIn_registerButton}>Create your Amazon Account</button>
+          {classes.logIn_registerButton}>
+            {
+            isLoading.signUp?(<ClipLoader size={20} color="#000" />):(" Create your Amazon Account")
+          }
+          </button>
+          
+          {/* error */} 
+          {
+            error && <small style={{paddingTop:"5px",color:"red"}}>{error}</small>
+          }
       </div>
       
 

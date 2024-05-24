@@ -7,6 +7,7 @@ import LayOut from '../../Components/LayOut/LayOut'
 const Landing = () => {
   return (
     <LayOut>
+      
         <CarouselEffect/>
         <Category/>
         <Product/>
