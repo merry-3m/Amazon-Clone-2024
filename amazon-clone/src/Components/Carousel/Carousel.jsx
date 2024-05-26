@@ -13,11 +13,14 @@ const CarouselEffect = () => {
         infiniteLoop={true}
         showIndicators={false}
         showThumbs={false}
+        interval={5000}
         >
             {/* import images */}
             {
                 img.map((imageItemLink) => (
-                    <img src ={imageItemLink}
+                    <img 
+                    loading='lazy'
+                    src ={imageItemLink}
                     key={imageItemLink}/>
                 ))
             }

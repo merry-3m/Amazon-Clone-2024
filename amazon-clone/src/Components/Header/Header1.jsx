@@ -62,15 +62,24 @@ const [selectedLanguage, setSelectedLanguage] = useState(
     localStorage.setItem("selectedLanguage", lng);
   };
 
+// ` for the cart
+ // * access the state but we want the basket so destructure it
+  // * after setting up sign in page now we can access the user from DataContext
+  const [{basket, user},dispatch] = useContext(DataContext)
+  // * to access how many buttons are clicked we can use .length 
+  // console.log(basket.length)
 
-  // ` for the cart count
-  const [{ basket, user }] = useContext(DataContext);
-
-  const totalItem = basket.reduce((amount, item) => amount + item.amount, 0);
+// ` for the cart count
+ const totalItem = basket.reduce((amount,item)=>
+  {
+    return amount + item.amount
+  },0)
+  // console.log(totalItem);
 
   return (
     <>
   <div className={classes.header}>
+  
     <nav class="navbar navbar-expand-lg ">
         <div class="container-fluid">
           <div className={classes.leftSection}>
@@ -235,22 +244,42 @@ const [selectedLanguage, setSelectedLanguage] = useState(
             </div>
          </div>
             {/* account */}
-
-          <div className={classes.accountContainer}>
-            <span className={classes.blockOne}>{t("header.greeting")}</span>
+            <Link to={!user &&"/auth"}>
+              <div className={classes.accountContainer}>
+                {
+                  user?(
+                    <>
+                     <span className={classes.blockOne}>Hello,{user?.email?.split("@")[0]}</span>
+            <span 
+             onClick={()=>auth.signOut()}
+            className={classes.blockTwo}> Sign Out</span>
+                    </>
+                  ) : (
+                    <>
+                    <span className={classes.blockOne}>{t("header.greeting")}</span>
             <span className={classes.blockTwo}> {t("header.accountLists")}</span>
+                    </>
+                  )
+                }
+           
           </div>
+            </Link>
           {/* order */}
 
-          <div className={classes.ordersContainer}>
+          <Link to = "/orders">
+            <div className={classes.ordersContainer}>
           <span className={classes.blockOne}>{t("header.returns")}</span>
             <span className={classes.blockTwo}>{t("header.orders")}</span>
           </div>
+          </Link>
+
+          
           {/* cart */}
 
-        <div className={classes.cartContainer}>
+         <Link to ="/cart">
+          <div className={classes.cartContainer}>
             <div className={classes.cartContent}>
-              <span className={classes.cartCount}>4</span>
+              <span className={classes.cartCount}>{totalItem}</span>
               <span className={classes.cartIcon}>
               </span>
             </div>
@@ -258,13 +287,15 @@ const [selectedLanguage, setSelectedLanguage] = useState(
               <span className={classes.cartText}>{t("header.cart")}</span>
             </div>
         </div>
+         </Link>
+        
 
       </div>
         </div>
     </nav>
   </div>
   <LowerHeader/>
-      
+    
     </>
   );
 };

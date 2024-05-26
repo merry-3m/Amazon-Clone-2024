@@ -13,6 +13,11 @@
     z-index: 1000; 
 }
 
+.header a {
+    text-decoration: none;
+    color:white;
+}
+
 .leftSection{
     display: flex;
     height: 60px;
@@ -139,7 +144,7 @@
     height: 60px;
     margin-top: 2px;
     padding: 3px 0 0 0;
-    width: 383px;
+    /* width: 383px; */
     align-items: center;
 }
 
@@ -171,9 +176,9 @@
     height: 50px;
     justify-content: center;
     margin: 0 2px;
-    padding: 0 9px 10px 9px;
+    /* padding: 0 33px 10px 33px; */
     border: solid transparent 1px;
-    width: 131px;
+    max-width: 450px;
 }
 
 .blockOne{
@@ -205,9 +210,9 @@
     flex-wrap: nowrap;
     height: 50px;
     justify-content: center;
-    padding: 0 9px 10px 9px;
+    padding-left: 20px;
     border: solid transparent 1px ;
-    width: 77px;
+    max-width: 450px;
 }
 
 .cartContainer{
@@ -221,7 +226,7 @@
     align-items: center;
     margin: 10px 11px 10px 0px;
     padding: 0 10px 11px 9px;
-    width: 85px;
+    max-width: 450px;
 }
 
 .cartContent{
@@ -326,7 +331,7 @@
 
 .navbar_panel{
     display: flex;
-    width: 1536px;
+    width: 100%;
     height: 40px;
     background-color: rgb(35,47,62);
     margin-top: 60px;
@@ -442,3 +447,40 @@ li{
     background-color:rgb(229,229,229);
     cursor:pointer;
 }
+
+/* media query */
+
+
+
+/* For screens smaller than 768px */
+@media (max-width: 767px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      height: auto; 
+    }
+  
+    .leftSection {
+      width: 100%; 
+    }
+  
+    .searchBar {
+      width: 100%; 
+      margin: 10px 0; 
+    }
+  
+    .rightSection {
+      width: 100%; 
+      justify-content: center; 
+    }
+    .navbar_panel {
+        margin-top: 198px; 
+    }
+    .panel_content{
+        display: none;
+    }
+    
+  }
+  
+
+ 

@@ -9,17 +9,17 @@ const CategoryCard = ({data}) => { //` We are destructuring the props data from 
   // console.log(data);
   return (
     <div className={classes.category}>
-
         <Link to={`/category/${data.name}`}>
             <span>
                 <h2>{data.title}</h2>
             </span>
-            <img src={data.imgLink} alt="" />
+            <div className={classes.img_container}>
+                <img src={data.imgLink} alt={data.title} />
+            </div>
             <p>Shop now</p>
-
         </Link>
     </div>
-  )
+  );
 }
 
 export default CategoryCard

@@ -9,3 +9,8 @@
     --primary-color:#febd69;
     --primary-shade:#d49644;
 }
+
+body{
+    overflow-x: hidden;
+    overscroll-behavior: none;
+}

@@ -10,6 +10,7 @@ const Landing = () => {
       
         <CarouselEffect/>
         <Category/>
+        
         <Product/>
     </LayOut>
   )
