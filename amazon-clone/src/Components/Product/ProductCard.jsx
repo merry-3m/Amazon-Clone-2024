@@ -44,39 +44,36 @@ const ProductCard = ({product,flex,renderDetail,renderButton}) => {
 
     // ` To limit the css to the class it's called (add this by myself)
     const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ""} ${renderDetail ? classes.no_hover : ""}`
-  return (
-    <div className={cardClass}>
-
-        <Link to={`/products/${id}`}>
-            <img src={image} alt="" />
-        </Link>
-        <div>
+    return (
+        <div className={cardClass}>
+          <Link to={`/products/${id}`}>
+            <img src={image} alt={title} />
+          </Link>
+          <div className={classes.card_content}>
             <h3>{title}</h3>
-            {/* if renderDetail is true in ProductDetail component */}
-            {renderDetail && <div style={{maxWidth:"750px"}}>
+            {renderDetail && (
+              <div style={{ maxWidth: "750px" }}>
                 {description}
-                </div>}
+              </div>
+            )}
             <div className={classes.rating}>
-                {/* rating */}
-                
-                <Rating value={rating?.rate} precision={0.1}/>
-                {/* rating count */}
-                <small>{rating?.count}</small>
+              <Rating value={rating?.rate} precision={0.1} />
+              <small>{rating?.count}</small>
             </div>
             <div>
-                {/* price */}
-                <CurrencyFormat amount={price}/>
-</div>
-        {renderButton && <button 
-        className={classes.button}
-        onClick={addToCart}
-        >
-            add to cart
-        </button>}
+              <CurrencyFormat amount={price} />
+            </div>
+            {renderButton && (
+              <button 
+                className={classes.button}
+                onClick={addToCart}
+              >
+                Add to Cart
+              </button>
+            )}
+          </div>
         </div>
-        
-    </div>
-  )
+      );
 }
 
 export default ProductCard
