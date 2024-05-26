@@ -49,6 +49,13 @@
     color: black;
 
 }
+.categories-dropDown .dropdown-menu {
+    position: absolute;
+    background-color: grey;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+    padding: .5rem 0;
+}
 
 /* right section */
 

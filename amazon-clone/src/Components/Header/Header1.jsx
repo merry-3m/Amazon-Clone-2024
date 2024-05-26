@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import { DataContext } from '../DataProvider/DataProvider';
 import "./dropDown.css"; 
 
+import axios from "axios"
+
 // ` for i18n  language
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
@@ -76,6 +78,49 @@ const [selectedLanguage, setSelectedLanguage] = useState(
   },0)
   // console.log(totalItem);
 
+  // ` for the location
+
+  const [location,setLocation] = useState("Your Location")
+
+  useEffect(() => {
+    const getLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCaV1BuPZEyV3NYoiwBY2uAl05aau-rLQI`);
+            const addressComponents = response.data.results[0].address_components;
+            
+            let city = '';
+            let state = '';
+
+            for (let component of addressComponents) {
+              if (component.types.includes('locality')) {
+                city = component.long_name;
+              } else if (component.types.includes('administrative_area_level_1')) {
+                state = component.short_name;
+              }
+            }
+
+            const location = `${city}, ${state}`;
+            setLocation(location);
+          } catch (error) {
+            console.error("Error fetching location:", error);
+            setLocation("Location unavailable");
+          }
+        }, (error) => {
+          console.error("Error getting geolocation:", error);
+          setLocation("Location unavailable");
+        });
+      } else {
+        setLocation("Geolocation not supported");
+      }
+    };
+
+    getLocation();
+  }, []);
+
+
   return (
     <>
   <div className={classes.header}>
@@ -103,7 +148,7 @@ const [selectedLanguage, setSelectedLanguage] = useState(
                 <div className={classes.userInfoBox}>
                   <span className={classes.deliverTo}>{t("header.deliverTo")}</span>
                   <span className={classes.deliveryLocation}>
-                    {t("header.location")}
+                    {location}
                   </span>
                 </div>
             </div>
