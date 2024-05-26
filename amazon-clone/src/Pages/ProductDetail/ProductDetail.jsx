@@ -48,6 +48,7 @@ const ProductDetail = () => {
       flex = {true}
       renderDetail = {true}
       renderButton={true}
+      marginBottomValue = {true}
 
       
       />

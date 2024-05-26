@@ -11,7 +11,7 @@ import { Type } from '../../Utility/action.type'
 
 
 // ` Destructure the fetched product from Product component
-const ProductCard = ({product,flex,renderDetail,renderButton}) => {
+const ProductCard = ({product,flex,renderDetail,renderButton,marginBottomValue}) => {
 
     // ` Destructure the items in product
     const { image,title, id, rating, price,description } = product
@@ -43,37 +43,31 @@ const ProductCard = ({product,flex,renderDetail,renderButton}) => {
 
 
     // ` To limit the css to the class it's called (add this by myself)
-    const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ""} ${renderDetail ? classes.no_hover : ""}`
-    return (
-        <div className={cardClass}>
-          <Link to={`/products/${id}`}>
-            <img src={image} alt={title} />
-          </Link>
-          <div className={classes.card_content}>
-            <h3>{title}</h3>
-            {renderDetail && (
-              <div style={{ maxWidth: "750px" }}>
-                {description}
-              </div>
-            )}
-            <div className={classes.rating}>
-              <Rating value={rating?.rate} precision={0.1} />
-              <small>{rating?.count}</small>
-            </div>
-            <div>
-              <CurrencyFormat amount={price} />
-            </div>
-            {renderButton && (
-              <button 
-                className={classes.button}
-                onClick={addToCart}
-              >
-                Add to Cart
-              </button>
-            )}
-          </div>
+    const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ''} ${renderDetail ? classes.no_hover : ''} ${marginBottomValue ? classes.marginBottomValue : ''}`;
+
+  return (
+    <div className={cardClass}>
+      <Link to={`/products/${id}`}>
+        <img src={image} alt={title} />
+      </Link>
+      <div className={classes.card_content}>
+        <h3>{title}</h3>
+        {renderDetail && <div style={{ maxWidth: '750px' }}>{description}</div>}
+        <div className={classes.rating}>
+          <Rating value={rating?.rate} precision={0.1} />
+          <small>{rating?.count}</small>
         </div>
-      );
+        <div className={classes.price}>
+          <CurrencyFormat amount={price} />
+        </div>
+        {renderButton && (
+          <button className={classes.button} onClick={addToCart}>
+            Add to Cart
+          </button>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export default ProductCard

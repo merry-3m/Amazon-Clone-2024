@@ -52,6 +52,7 @@ const Cart = () => {
                   renderDetail={true}
                   flex={true}
                   renderButton={false}
+                  marginBottomValue = {false}
                 />
                 <div className={classes.btn_container}>
                   <button 

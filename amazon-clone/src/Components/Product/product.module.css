@@ -126,6 +126,7 @@
   .no_hover {
     transition: none;
     box-shadow: none;
+    
   }
   
   .no_hover:hover {
@@ -133,3 +134,7 @@
     box-shadow: none;
   }
   
+  .marginBottomValue{
+    margin-bottom: 300px;
+
+  }
