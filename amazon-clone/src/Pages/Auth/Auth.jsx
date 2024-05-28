@@ -1,7 +1,7 @@
 import React, { useState,useContext } from 'react'
 import classes from "./signUp.module.css"
 import amazonLogo from "../../assets/images/amazon-Logo.png"
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate,useLocation } from 'react-router-dom'
 
 import {auth} from "../../Utility/firebase"
 import {signInWithEmailAndPassword, createUserWithEmailAndPassword} from "firebase/auth"
@@ -37,6 +37,9 @@ const Auth = () => {
     // ` to navigate
     const navigate = useNavigate()
 // console.log(email,password);
+    const navStateData = useLocation()
+    // console.log(navStateData); //` by using this we can access the state that send to auth from ProtectedRoute
+
 
 // ` function for sign in and sign up
 
@@ -66,8 +69,9 @@ const authHandler =  async(e)=>{
         ...isLoading,
         signIn:false
       })
-    //  `  navigate to home page
-    navigate("/")
+    //  `  navigate to the redirected page
+    navigate(navStateData?.state?.redirect || "/")
+
 
     }).catch((error)=>{
       console.log(error.message);
@@ -89,7 +93,8 @@ const authHandler =  async(e)=>{
       })
       // = when sign up button clicking is successful
       setIsLoading({...isLoading,signUp:false})
-      navigate("/")
+      //  `  navigate to the redirected page
+    navigate(navStateData?.state?.redirect || "/")
     }
     ).catch((error)=>{
       console.log(error.message);
@@ -113,6 +118,18 @@ const authHandler =  async(e)=>{
       {/* form */}
       <div className={classes.logIn_container}>
         <h1>Sign In</h1>
+        {
+          navStateData?.state?.msg && (
+            <small style={{
+              padding:"5px",
+              textAlign:"center",
+              color:"red",
+              fontWeight:"bold",
+            }}>
+              {navStateData?.state?.msg}
+            </small>
+          )
+        }
         <form action="">
           <div>
             <label htmlFor="email">Email</label>

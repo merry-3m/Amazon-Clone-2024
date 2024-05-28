@@ -408,6 +408,7 @@
 .userName{
     font-weight:700;
     font-size:19px;
+    cursor: pointer;
 }
 
 li{

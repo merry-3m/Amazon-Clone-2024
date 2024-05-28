@@ -11,7 +11,7 @@ import { Type } from '../../Utility/action.type'
 
 
 // ` Destructure the fetched product from Product component
-const ProductCard = ({product,flex,renderDetail,renderButton,marginBottomValue}) => {
+const ProductCard = ({ product, flex, renderDetail, renderButton, marginBottomValue, sideBySide })  => {
 
     // ` Destructure the items in product
     const { image,title, id, rating, price,description } = product
@@ -43,14 +43,17 @@ const ProductCard = ({product,flex,renderDetail,renderButton,marginBottomValue})
 
 
     // ` To limit the css to the class it's called (add this by myself)
-    const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ''} ${renderDetail ? classes.no_hover : ''} ${marginBottomValue ? classes.marginBottomValue : ''}`;
+    const cardClass = `${classes.card_container} ${flex ? classes.product_flexed : ''} ${renderDetail ? classes.no_hover : ''} ${marginBottomValue ? classes.marginBottomValue : ''} ${sideBySide ? classes.card_side_by_side : ''}`;
+const cardContentClass = `${classes.card_content} ${sideBySide ? classes.card_content_side_by_side : ''}`;
+
+  
 
   return (
     <div className={cardClass}>
       <Link to={`/products/${id}`}>
         <img src={image} alt={title} />
       </Link>
-      <div className={classes.card_content}>
+      <div className={cardContentClass}>
         <h3>{title}</h3>
         {renderDetail && <div style={{ maxWidth: '750px' }}>{description}</div>}
         <div className={classes.rating}>

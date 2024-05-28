@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiOutlineMenu } from "react-icons/ai";
 import classes from "./header.module.css";
 import "./dropDown.css";
 import { useTranslation } from 'react-i18next';
+import { DataContext } from "../DataProvider/DataProvider";
+import { auth } from '../../Utility/firebase';
 
 const LowerHeader = () => {
   const { t } = useTranslation();
+
+  const [{user}] = useContext(DataContext)
 
   return (
     <div className={classes.navbar_panel}>
@@ -31,7 +35,23 @@ const LowerHeader = () => {
       >
        <div className={classes.menuProfile}>
           <div className={classes.userIcon}></div>
-          <div className={classes.userName}>{t("lowerHeader.greeting")}</div>
+          <div className={classes.userName}>
+          {
+                  user?(
+                    <>
+                     <span className={classes.blockOne}>Hello,{user?.email?.split("@")[0]}</span>
+            <span 
+             onClick={()=>auth.signOut()}
+            className={classes.blockTwo}> Sign Out</span>
+                    </>
+                  ) : (
+                    <>
+                    <span className={classes.blockOne}>{t("header.greeting")}</span>
+            
+                    </>
+                  )
+                }
+          </div>
        </div>
        <button
             type="button"

@@ -146,7 +146,8 @@ const [selectedLanguage, setSelectedLanguage] = useState(
                   style={{marginTop:"23px"}}/>
                 </div>
                 <div className={classes.userInfoBox}>
-                  <span className={classes.deliverTo}>{t("header.deliverTo")}</span>
+                  <span className={classes.deliverTo}>{t("header.deliverTo")}
+                  <p style={{fontWeight:"bold", paddingRight:"4px"}}>{user?.email?.split("@")[0]}</p></span>
                   <span className={classes.deliveryLocation}>
                     {location}
                   </span>
